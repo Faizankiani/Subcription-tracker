@@ -1,6 +1,6 @@
 const errorMiddleware = (err, req, res, next) => {
 
-    let stausCode = err.statusCode || 500;
+    let statusCode = err.statusCode || 500;
     let message = err.message || "Internal Server Error";
 
     if (err.name === "CastError"){
@@ -19,4 +19,7 @@ const errorMiddleware = (err, req, res, next) => {
         success: false,
         message = message
     });
+ 
     
+};
+export default errorMiddleware;
