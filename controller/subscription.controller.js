@@ -11,3 +11,15 @@ export const createSubscription = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const getSubscription = async (req, res) => {
+  try {
+    const subscription = await Subscription.findById(req.params.id);
+    if (!subscription) {
+      return res.status(404).json({ error: 'Subscription not found' });
+    }
+    res.json(subscription);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }   
+};
