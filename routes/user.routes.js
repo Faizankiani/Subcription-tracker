@@ -6,6 +6,4 @@ const userRoutes = Router();
 
 userRoutes.get('/', getUsers);
 userRoutes.get('/:id', authorize, getUser);
-
-
 export default userRoutes;

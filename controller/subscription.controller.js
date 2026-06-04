@@ -1,25 +1,11 @@
-import  Subscription from '../models/subscription.model.js';
+import SubscriptionService from '../services/subscription.service.js';
 
-// Create a new subscription
-export const createSubscription = async (req, res) => {
-  try { 
-    const { userId, planId, startDate, endDate } = req.body;
-    const subscription = new Subscription({ userId, planId, startDate, endDate });
-    await subscription.save();
-    res.status(201).json(subscription);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-export const getSubscription = async (req, res) => {
-  try {
-    const subscription = await Subscription.findById(req.params.id);
-    if (!subscription) {
-      return res.status(404).json({ error: 'Subscription not found' });
+export const subscribe = async (req, res) => {    
+    try {
+        const { userId } = req.body; // Assuming userId is sent in the request body
+        const subscription = await SubscriptionService.subscribe(userId);
+        res.status(201).json(subscription);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-    res.json(subscription);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }   
 };
