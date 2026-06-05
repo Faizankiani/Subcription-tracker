@@ -1,11 +1,12 @@
-import SubscriptionService from '../services/subscription.service.js';
+import Subscription from "../models/Subscription.model.js";
 
-export const subscribe = async (req, res) => {    
-    try {
-        const { userId } = req.body; // Assuming userId is sent in the request body
-        const subscription = await SubscriptionService.subscribe(userId);
-        res.status(201).json(subscription);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+export const createSybscription = (req, res, next) =>{
+    try{
+        const subscription  =  await Subscription.create({
+        ...req.body,
+        user: req.user._id
+    })
+    }catch(err){
+        next(err);
     }
-};
+}
