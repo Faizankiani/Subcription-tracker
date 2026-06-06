@@ -5,7 +5,8 @@ export const createSybscription = (req, res, next) =>{
         const subscription  =  await Subscription.create({
         ...req.body,
         user: req.user._id
-    })
+    });
+    res.status(201).json({success: true, data: subscription});
     }catch(err){
         next(err);
     }
@@ -19,7 +20,7 @@ const getSubscription = async (req, res, next) =>{
         if (!subscription){
             return res.status(404).json({message: "Subscription not found"});
         }
-        res.json(subscription);
+        res.status(200).json({success: true, data: subscription});
     }catch(err){
         next(err);
     }
